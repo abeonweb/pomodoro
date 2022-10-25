@@ -1,38 +1,33 @@
 import { useState, useEffect } from "react"
 
-export default function Timer({time, setTimerUp}){
-    const [timer, setTimer] = useState({
+export default function Timer({time}){
+    const [clock, setClock] = useState({
         minutes: time,
         seconds: 0
     })
     const [isTimeUp, setIsTimeUp] = useState(false)
    
     function countdown(){
-        setTimer(prevTimer =>{
-                if(prevTimer.minutes === 0 && prevTimer.seconds === 1){
+        setClock(prevClock =>{
+                if(prevClock.minutes === 0 && prevClock.seconds === 1){
                     setIsTimeUp(true)
-                    setTimerUp(true)
-                    return { ...prevTimer, seconds: 0 }
+                    return { ...prevClock, seconds: 0 }
                 }
-                else if(prevTimer.seconds === 0){
-                    return { minutes: prevTimer.minutes - 1, seconds: 59 }
-                } else if( prevTimer.seconds > 0){
-                    return { ...prevTimer, seconds: prevTimer.seconds - 1 }
+                else if(prevClock.seconds === 0){
+                    return { minutes: prevClock.minutes - 1, seconds: 59 }
+                } else if( prevClock.seconds > 0){
+                    return { ...prevClock, seconds: prevClock.seconds - 1 }
                 }
-            })
+        })
     }
 
     useEffect(()=>{
-        if(!isTimeUp) {
-            setTimeout(()=>{
-                countdown()
-            }, 1000)        
-        }
+        !isTimeUp && setTimeout(()=> (countdown()), 1000)
     })
 
     return (
-        <div>
-            <span>{timer.minutes} : {timer.seconds<10? "0":""}{timer.seconds}</span>
+        <div className="clock">
+            <span className="clock-face">{clock.minutes} : {clock.seconds<10? "0":""}{clock.seconds}</span>
         </div>
     )
 }
