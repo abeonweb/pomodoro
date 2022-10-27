@@ -14,12 +14,14 @@ const Dropdown = ({ options, dispatch }) => {
       setOpen(prev => !prev)
     }
   
-    return <div className="cycle-dropdown">
+    return <div className=" dropdown">
       <button onClick={handleOpen}>{options.name}</button>
       {open ? (
         <ul className="menu">
-          {options.values.map(value =>{
-              return  <li className="menu-item">
+          {options.values.map((value, index) =>{
+              return  <li 
+              key={`${options.name}-${index}`}
+              className="menu-item">
                         <button className="menu-button" value={value} onClick={handleSelection}>{value}</button>
                       </li>
               })
