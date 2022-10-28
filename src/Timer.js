@@ -22,7 +22,12 @@ export default function Timer({time}){
     }
 
     useEffect(()=>{
-        !isTimeUp && setTimeout(()=> (countdown()), 1000)
+        let timer = setTimeout(()=> {
+            if(!isTimeUp)
+                countdown()
+        }, 1000)
+        
+        return ()=> clearTimeout(timer)
     })
 
     return (
