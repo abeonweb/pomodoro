@@ -15,7 +15,7 @@ const Dropdown = ({ options, dispatch }) => {
     }
   
     return <div className=" dropdown">
-      <button onClick={handleOpen}>{options.name}</button>
+      <button onClick={handleOpen} className="dropdown-button">{options.name}</button>
       {open ? (
         <ul className="menu">
           {options.values.map((value, index) =>{
